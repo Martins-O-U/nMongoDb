@@ -9,6 +9,13 @@ const MONGODB_URL = process.env.MONGODB
 
 mongoose.connect(MONGODB_URL, { useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
 
+const UserSchema = new mongoose.Schema({
+    email: { type: String, required: true, unique: false },
+    password: { type: String, required: true }
+}, { collection: 'users' })
+
+const User = mongoose.model('User', UserSchema);
+
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)
 })
