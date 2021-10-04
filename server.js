@@ -25,7 +25,7 @@ MongoClient.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true 
             quotesCollection.insertOne(req.body)
                 .then(result => {
                     console.log(result)
-                    res.redirect('/browse')
+                    res.redirect('/browsemongo')
                 })
                 .catch(error => {
                     console.log(error)
@@ -40,6 +40,25 @@ MongoClient.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true 
                 .catch(error => {
                     console.log(error)
                 })
+        })
+
+        server.put('/quotes', (req, res) => {
+            quotesCollection.findOneAndUpdate(
+                { name: 'Blinx' },
+                {
+                    $set: {
+                        name: req.body.name,
+                        quote: req.body.quote
+                    }
+                },
+                {
+                    upsert: true
+                }
+            )
+                .then(result => {
+                    res.json('Success')
+                })
+                .catch(error => console.error(error))
         })
     })
     .catch(error => {
