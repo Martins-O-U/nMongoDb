@@ -60,6 +60,18 @@ MongoClient.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true 
                 })
                 .catch(error => console.error(error))
         })
+        server.delete('/quotes', (req, res) => {
+            quotesCollection.deleteOne(
+                { name: req.body.name }
+            )
+                .then(result => {
+                    if (result.deletedCount === 0) {
+                        return res.json('No quote to delete')
+                    }
+                    res.json(`Deleted ${req.body.name}'s quote`)
+                })
+                .catch(error => console.error(error))
+        })
     })
     .catch(error => {
         console.log(error)
