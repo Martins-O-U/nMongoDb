@@ -1,8 +1,7 @@
-const router = require("express").Router()
 const Charac = require('../Models/Character')
 
 
-router.get('/char', async (req, res) => {
+const getCharacter = async (req, res) => {
     try {
         const getryu = await Charac.find({})
         if (getryu) {
@@ -13,9 +12,9 @@ router.get('/char', async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: "Something went wrong, " + error.message })
     }
-})
+}
 
-router.post('/char', async (req, res) => {
+const addCharacter = async (req, res) => {
     const { specials, name, ultimateP } = req.body
     const addChar = new Charac({
         specials, name, ultimateP
@@ -26,9 +25,9 @@ router.post('/char', async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: "Something went wrong " + error.message })
     }
-})
+}
 
-router.put('/char/:id', async (req, res) => {
+const updateCharacter = async (req, res) => {
     const { specials, name, ultimateP } = req.body;
     let { id } = req.params;
     try {
@@ -52,9 +51,9 @@ router.put('/char/:id', async (req, res) => {
     } catch (error) {
         res.status(400).json({ message: `Character with id: ${id} does not exist` })
     }
-})
+}
 
-router.delete("/char/:id", async (req, res) => {
+const deleteCharacter = async (req, res) => {
     let { id } = req.params;
 
     try {
@@ -64,6 +63,11 @@ router.delete("/char/:id", async (req, res) => {
         res.status(400).json({ message: `Character with id: ${id} does not exist` })
     }
 
-})
+}
 
-module.exports = router
+module.exports = {
+    getCharacter,
+    addCharacter,
+    updateCharacter,
+    deleteCharacter,
+};
