@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require('mongoose');
 const Character = require('./Projects/Models/Character')
+const nacharacter = require('./Projects/Routes/CharacterMon')
 
 
 const server = express()
@@ -9,6 +10,9 @@ server.set('view engine', 'ejs')
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 server.use(express.static('public'));
+
+
+server.use('/api', nacharacter)
 
 const url = 'mongodb://127.0.0.1:27017/test'
 
@@ -43,32 +47,32 @@ db.on('error', err => {
 
 // =========== Add Characters =============
 
-const addChar = async () => {
+// const addChar = async () => {
 
-    const ryu = new Character({
-        name: 'Ali-boy',
-        specials: ["Dance", "Sing", "Run"],
-        ultimateP: 'Luku-luku'
-    })
-    try {
-        const doc = await ryu.save()
-        console.log(doc)
-    }
-    catch (error) {
-        console.error(error.message)
-    }
+//     const ryu = new Character({
+//         name: 'Ali-boy',
+//         specials: ["Dance", "Sing", "Run"],
+//         ultimateP: 'Luku-luku'
+//     })
+//     try {
+//         const doc = await ryu.save()
+//         console.log(doc)
+//     }
+//     catch (error) {
+//         console.error(error.message)
+//     }
 
-}
+// }
 
-addChar()
+// addChar()
 
 // ============== Get Characters ============
 
-const getChar = async () => {
-    const getryu = await Character.find({})
-    console.log(getryu)
-}
-getChar()
+// const getChar = async () => {
+//     const getryu = await Character.find({})
+//     console.log(getryu)
+// }
+// getChar()
 
 // =============== Update Characters ==========
 
