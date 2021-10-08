@@ -31,10 +31,10 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useCrea
 //     console.error('connection error:', err)
 // })
 
-
+//============ Deafault Landing Test ========================
 
 server.get('/', (req, res) => {
-    res.json({ message: "Welcome to the default test zone, please specify a path" })
+    res.json({ message: "Welcome to the default test zone, please specify a path e.g. /api/char  for a get request" })
 })
 
 
