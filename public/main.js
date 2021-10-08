@@ -19,22 +19,6 @@ update.addEventListener('click', _ => {
 
 const deleteButton = document.querySelector('#delete-button')
 
-// deleteButton.addEventListener('click', _ => {
-//     fetch('/quotes', {
-//         method: 'delete',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify({
-//             name: 'Darth Vadar'
-//         })
-//     })
-//         .then(res => {
-//             if (res.ok) return res.json()
-//         })
-//         .then(data => {
-//             console.log(data)
-//         })
-// })
-
 const messageDiv = document.querySelector('#message')
 
 deleteButton.addEventListener('click', _ => {

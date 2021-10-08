@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require('mongoose');
-const nacharacter = require('./Projects/Routes/CharacterMon')
-
+const nacharacter = require('./Projects/Routes/CharacterMon');
+const fileDisplay = require('./public/FileDisplay');
 
 const server = express()
 
@@ -12,6 +12,7 @@ server.use(express.static('public'));
 
 
 server.use('/api', nacharacter)
+server.use('/api/file', fileDisplay)
 
 const url = 'mongodb://127.0.0.1:27017/test'
 
@@ -29,27 +30,10 @@ db.on('error', err => {
 
 
 
-// =============== Update Characters ==========
-
-
-
-
-// ===================== Delete Characters ==============
-
-// const deleteRyu = async () => {
-//     const deleted = await Character.findOneAndDelete({ name: 'Sasuke' })
-
-//     console.log(deleted + " Error..")
-// }
-// deleteRyu()
-
 server.get('/', (req, res) => {
     res.json({ message: "Welcome to the default zone, please specify a path" })
 })
 
-server.get('/browse', (req, res) => {
-    res.sendFile(__dirname + '/browserRoute.html')
-})
 
 
 module.exports = server;

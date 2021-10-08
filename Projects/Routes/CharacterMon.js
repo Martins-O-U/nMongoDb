@@ -2,7 +2,6 @@ const router = require("express").Router()
 const Charac = require('../Models/Character')
 
 
-
 router.get('/char', async (req, res) => {
     try {
         const getryu = await Charac.find({})
@@ -53,7 +52,17 @@ router.put('/char/:id', async (req, res) => {
     } catch (error) {
         res.status(400).json({ message: `Character with id: ${id} does not exist` })
     }
+})
 
+router.delete("/char/:id", async (req, res) => {
+    let { id } = req.params;
+
+    try {
+        const deletedChar = await Charac.findOneAndDelete({ _id: id })
+        res.json({ message: "below data has been deleted!", deletedChar })
+    } catch (error) {
+        res.status(400).json({ message: `Character with id: ${id} does not exist` })
+    }
 
 })
 
