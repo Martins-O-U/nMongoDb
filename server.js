@@ -1,6 +1,5 @@
 const express = require("express");
 const mongoose = require('mongoose');
-const Character = require('./Projects/Models/Character')
 const nacharacter = require('./Projects/Routes/CharacterMon')
 
 
@@ -28,84 +27,12 @@ db.on('error', err => {
 })
 
 
-// ============== Adding characters without Async =================
 
-// const kakashi = new Character({
-//     name: "Kakashi",
-//     ultimateP: "Sharingan"
-// })
-
-// kakashi.save((error, document) => {
-//     if (error) {
-//         console.log(error)
-//     }
-//     console.log(document)
-// })
-
-
-// ======================== Working with Async ======================
-
-// =========== Add Characters =============
-
-// const addChar = async () => {
-
-//     const ryu = new Character({
-//         name: 'Ali-boy',
-//         specials: ["Dance", "Sing", "Run"],
-//         ultimateP: 'Luku-luku'
-//     })
-//     try {
-//         const doc = await ryu.save()
-//         console.log(doc)
-//     }
-//     catch (error) {
-//         console.error(error.message)
-//     }
-
-// }
-
-// addChar()
-
-// ============== Get Characters ============
-
-// const getChar = async () => {
-//     const getryu = await Character.find({})
-//     console.log(getryu)
-// }
-// getChar()
 
 // =============== Update Characters ==========
 
-// const updateRyu = async () => {
-//     const toUpdateRyu = await Character.findOne({ name: "Ryu" })
-//     console.log(toUpdateRyu + " Before..")
 
-//     toUpdateRyu.specials = [
-//         'Hadoken',
-//         'Shoryuken',
-//         'Tatsumaki Senpukyaku'
-//     ]
-//     const updatedRyu = await toUpdateRyu.save()
-//     console.log(updatedRyu + " After..")
-// }
 
-// updateRyu()
-
-// const secondupdateRyu = async () => {
-//     const toUpdateRyu = await Character.findOneAndUpdate({ name: "Ryu" },
-//         {
-//             specials: [
-//                 'Hadoken',
-//                 'Shoryuken',
-//                 'Tatsumaki Jangu'
-//             ]
-//         })
-//     console.log(toUpdateRyu + " Before..")
-//     const updatedRyu = await toUpdateRyu.save()
-//     console.log(updatedRyu + " After..")
-// }
-
-// secondupdateRyu()
 
 // ===================== Delete Characters ==============
 
