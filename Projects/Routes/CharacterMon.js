@@ -22,7 +22,7 @@ const userLogin = async (req, res) => {
     const { email, password } = req.body;
     const response = await verifyUser(email, password);
     if (response.status === "ok") {
-        res.cookies('token', token, { maxAge: 2 * 60 * 60 * 1000, httpOnly: true });
+        res.cookie('token', response.data, { maxAge: 2 * 60 * 60 * 1000, httpOnly: true }).json({ message: "Saved Token: " + response.data });
     } else {
         res.json(response)
     }

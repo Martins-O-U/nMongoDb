@@ -7,17 +7,14 @@ const User = require('../Projects/Models/User');
 const JWT_SECRET = process.env.JWT || "A secret lives here";
 
 
-const verifyToken = (req, res, next) => {
+const verifyToken = async (token) => {
     try {
-        const token = req.headers.authorization;
-        jwt.verify(token, JWT_SECRET, (error, decodedToken) => {
-            if (error) {
-                res.status(500).json({ message: "Something went wrong:- " + error.message })
-            } else {
-                req.user = decodedToken.user
-                next()
-            }
-        })
+        const verified = await jwt.verify(token, JWT_SECRET);
+        if (!verified) {
+            res.status(500).json({ message: "Something went wrong:- " + error.message })
+        } else {
+            return true
+        }
     } catch (error) {
         res.status(401).json({ you: 'Invalid credentials!' });
     }

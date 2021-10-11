@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser')
 const nacharacter = require('./Projects/Routes/index');
 const fileDisplay = require('./public/FileDisplay');
 
@@ -8,6 +9,7 @@ const server = express()
 server.set('view engine', 'ejs')
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
+server.use(cookieParser())
 server.use(express.static('public'));
 
 // ================= Application Routes ==============================
