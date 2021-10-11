@@ -1,5 +1,50 @@
-const Charac = require('../Models/Character')
+const Charac = require('../Models/Character');
+const User = require('../Models/User');
+const bcrypt = require('bcryptjs');
+const { verifyUser, verifyToken } = require('../../Auth/Auth')
 
+const salt = 10;
+
+const createUsers = async (req, res) => {
+    let user = req.body;
+    try {
+        let hashedPassword = await bcrypt.hash(user.password, salt);
+        user.password = hashedPassword
+        const response = await User.create(user)
+        res.json({ message: "User has been created", data: response })
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong,' + error.message })
+
+    }
+}
+
+const userLogin = async (req, res) => {
+    const { email, password } = req.body;
+    const response = await verifyUser(email, password);
+    if (response.status === "ok") {
+        res.cookies('token', token, { maxAge: 2 * 60 * 60 * 1000, httpOnly: true });
+    } else {
+        res.json(response)
+    }
+}
+
+const getUsers = async (req, res) => {
+    const { token } = req.cookies;
+    if (verifyToken(token)) {
+        try {
+            const getruser = await User.find({})
+            if (getruser) {
+                res.status(200).json(getruser)
+            } else {
+                res.status(400).json({ maessage: "Data not found" })
+            }
+        } catch (error) {
+            res.status(500).json({ message: "Something went wrong, " + error.message })
+        }
+    } else {
+        res.status(401).json({ message: "Please login with your credentials" })
+    }
+}
 
 const getCharacter = async (req, res) => {
     try {
@@ -70,4 +115,8 @@ module.exports = {
     addCharacter,
     updateCharacter,
     deleteCharacter,
+
+    createUsers,
+    getUsers,
+    userLogin
 };
